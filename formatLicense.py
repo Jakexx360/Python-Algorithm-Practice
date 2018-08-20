@@ -8,6 +8,7 @@
 def solution(S, K):
     # Capitalize and remove hyphens
     S = S.upper().strip("-")
+    # Calculate the size of the first group
     first_size = len(S) % K
 
     i = 0
