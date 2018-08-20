@@ -1,5 +1,5 @@
 # Find all pairs of numbers in a given list that add up to a given value
-def findSumInList(array, value):
+def find_sum_in_list(array, value):
     results = []
     for i, x in enumerate(array):
         for j, y in enumerate(array):
@@ -8,4 +8,4 @@ def findSumInList(array, value):
     return results
 
 
-print(findSumInList([3, 10, 13, 8, 4, 7, 21, 0], 21))
+print(find_sum_in_list([3, 10, 13, 8, 4, 7, 21, 0], 21))
