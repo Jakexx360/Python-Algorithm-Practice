@@ -1,14 +1,3 @@
-# Calculate max sum of array elements in O(n^2) time
-def brute_force(arr, start=0, cur_sum=0):
-    if len(arr) == start:
-        return
-    val = cur_sum + arr[start]
-    print(str(val))
-
-    brute_force(arr, start + 1, val)
-    brute_force(arr, start + 1, cur_sum)
-
-
 # Calculate max sum of array elements in O(n*log n) time
 def max_sum(arr):
     if len(arr) == 0:
@@ -44,3 +33,4 @@ print(max_sum([-5, -10, -20, -30, -10, 5]))  # 0
 print(max_sum([-10, 0, -1, 0, 1]))  # 1
 print(max_sum([-10, -20, 0, -10]))  # -10
 print(max_sum([-10, 10, -20, -30, -10, 5, 0, 10]))  # 25
+
