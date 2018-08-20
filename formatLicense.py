@@ -6,18 +6,13 @@
 # Given S = "r" and K = 1, the function should return "R".
 
 def solution(S, K):
-    # Capitalize
-    S = S.upper()
-    # Remove hyphens
-    new = ""
-    for c in S:
-        new += c if c != "-" else ""
-    # Determine size of first group
-    first_size = len(new) % K
+    # Capitalize and remove hyphens
+    S = S.upper().strip("-")
+    first_size = len(S) % K
 
     i = 0
     result = ""
-    for c in new:
+    for c in S:
         # If first group or appropriate group size, insert hyphen
         if i != 0 and (i == first_size or (i - first_size) % K == 0):
             result += "-"
