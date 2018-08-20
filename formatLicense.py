@@ -5,9 +5,10 @@
 # and for K = 3, the function should return "24-A0R-74K" as the first group could be shorter.
 # Given S = "r" and K = 1, the function should return "R".
 
+
 def solution(S, K):
     # Capitalize and remove hyphens
-    S = S.upper().strip("-")
+    S = S.strip("-").upper()
     # Calculate the size of the first group
     first_size = len(S) % K
 
