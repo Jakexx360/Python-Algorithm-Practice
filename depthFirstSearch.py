@@ -12,8 +12,7 @@ graph = {'A': {'B', 'C'},
 
 
 # Iterative depth-first search of a given graph
-# If end is specified, returns visited nodes in order
-#    and number of nodes traversed
+# If end is specified, returns visited nodes in order and number of nodes traversed
 # If end is NOT specified or found, returns visited nodes in order and -1
 def dfs_iterative(g, start, end=None):
     visited, stack = set(), [start]
