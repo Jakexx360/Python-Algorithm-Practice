@@ -6,18 +6,18 @@
 # Given S = "r" and K = 1, the function should return "R".
 
 
-# Perform the above from front-to-back
+# Perform the above from front-to-back O(n)
 def format_license_front(S, K):
     # Capitalize and remove hyphens
-    S = S.replace("-", "").upper()
+    S = S.replace("-", "").upper()  # O(n)
     # Calculate the size of the first group
-    first_size = len(S) % K
+    first_size = len(S) % K  # O(1)
 
     i = 0
     result = ""
-    for c in S:
+    for c in S:  # O(n)
         # If first group or appropriate group size, insert hyphen
-        if i != 0 and (i == first_size or (i - first_size) % K == 0):
+        if i != 0 and (i == first_size or (i - first_size) % K == 0):  # O(1)
             result += "-"
         # Append the character and increment
         result += c
@@ -25,17 +25,17 @@ def format_license_front(S, K):
     return result
 
 
-# Perform the above from back-to-front
+# Perform the above from back-to-front O(n)
 def format_license_back(S, K):
     # Capitalize and remove hyphens
-    S = S.replace("-", "").upper()
+    S = S.replace("-", "").upper()  # O(n)
 
     # Reverse the input string and build the result
     result = ""
     counter = 0
-    for c in S[::-1]:
+    for c in S[::-1]:  # O(n)
         # If the counter has reached the desired size
-        if counter == K:
+        if counter == K:  # O(1)
             # Append a hyphen and reset the counter
             result += "-"
             counter = 0
@@ -43,7 +43,7 @@ def format_license_back(S, K):
         result += c
         counter += 1
     # Reverse and return the result
-    return result[::-1]
+    return result[::-1]  # O(n)
 
 
 print(format_license_front("ggdfgg-hhhhy", 6) == format_license_back("ggdfgg-hhhhy", 6))
