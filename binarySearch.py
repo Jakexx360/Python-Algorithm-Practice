@@ -1,5 +1,4 @@
-# Given a sorted array arr and a value x to locate,
-# Returns location of x if present, else returns -1
+# Given a sorted array arr and a value x to locate, returns location of x if present, else returns -1. O(log(n))
 def binary_search(arr, x):
     # Set boundaries of search
     lower = 0
