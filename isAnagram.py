@@ -13,7 +13,7 @@ def is_anagram(str1, str2):
         # If the values for this key are the same
         if letters2.get(key, -1) == value:  # O(1)
             # Delete the key from the second letter dict
-            del (letters2[key])  # O(1)
+            del letters2[key]  # O(1)
         else:
             return False
     # If second letter dict is empty, all values were equal

@@ -1,12 +1,13 @@
-# given a non-empty string S consisting of N characters,
-# representing a license key to format, and an integer K,
-# returns the license key formatted according to the description above.
+# Given a non-empty string S consisting of N characters representing a license key to format,
+# and an integer K (the desired number of characters between dashes), returns the license key formatted properly.
+# Note, the first group may be of variable length.
 # For example, given S = "2-4A0r7-4k" and K = 4, the function should return "24A0-R74K",
 # and for K = 3, the function should return "24-A0R-74K" as the first group could be shorter.
 # Given S = "r" and K = 1, the function should return "R".
 
 
-def solution(S, K):
+# Perform the above from front-to-back
+def format_license_front(S, K):
     # Capitalize and remove hyphens
     S = S.replace("-", "").upper()
     # Calculate the size of the first group
@@ -24,5 +25,28 @@ def solution(S, K):
     return result
 
 
-print(solution("ggdfgg-hhhhy", 6))
-print(solution("gggg", 3))
+# Perform the above from back-to-front
+def format_license_back(S, K):
+    # Capitalize and remove hyphens
+    S = S.replace("-", "").upper()
+
+    # Reverse the input string and build the result
+    result = ""
+    counter = 0
+    for c in S[::-1]:
+        # If the counter has reached the desired size
+        if counter == K:
+            # Append a hyphen and reset the counter
+            result += "-"
+            counter = 0
+        # Append the character to result and increment counter
+        result += c
+        counter += 1
+    # Reverse and return the result
+    return result[::-1]
+
+
+print(format_license_front("ggdfgg-hhhhy", 6) == format_license_back("ggdfgg-hhhhy", 6))
+print(format_license_front("gggg", 3) == format_license_back("gggg", 3))
+print(format_license_front("r", 1) == format_license_back("r", 1))
+print(format_license_front("2-4A0r7-4k", 4) == format_license_back("2-4A0r7-4k", 4))
