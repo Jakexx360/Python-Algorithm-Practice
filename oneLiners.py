@@ -176,3 +176,11 @@ def my_count(input_str):
 
 input_str2 = "The 25 quick brown foxes jumped over the 27 lazy dogs 17 times."
 print("Digit count: " + str(my_count(input_str2)))
+
+
+# Reverses the words in a given string
+def reverse_words(s):
+    return " ".join(s.split()[::-1])
+
+
+print(reverse_words("first second third forth") == "forth third second first")  # True
