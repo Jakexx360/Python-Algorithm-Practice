@@ -35,3 +35,20 @@ class Stack:
 
     def size(self):
         return len(self.items)
+
+
+# Queue implemented with Stacks
+class QueueStack:
+    def __init__(self):
+        self.incoming = Stack()
+        self.outgoing = Stack()
+
+    def enqueue(self, item):
+        while self.outgoing.size() > 0:
+            self.incoming.push(self.outgoing.pop())
+        self.incoming.push(item)
+
+    def dequeue(self):
+        while self.incoming.size() > 0:
+            self.outgoing.push(self.incoming.pop())
+        self.outgoing.pop()
