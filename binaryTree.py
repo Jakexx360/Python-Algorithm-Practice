@@ -11,7 +11,22 @@ class BinaryTree:
     def __init__(self, value):
         self.root = Node(value)
 
-    def get_path(self, root, path, k):
+    # Private recursive method for checking binary search tree validity
+    def _search_tree_helper(self, current, min_val, max_val):
+        if current.left is not None:
+            if current.left.value < min_val or not self._search_tree_helper(current.left, min_val, current.value):
+                return False
+        if current.right is not None:
+            if current.right.value > max_val or not self._search_tree_helper(current.right, current.value, max_val):
+                return False
+        return True
+
+    # Returns true if this is a valid binary search tree
+    def is_binary_search_tree(self):
+        return self._search_tree_helper(self.root, 0, 100000)
+
+    # Private recursive method for building a path from given root to k
+    def _get_path(self, root, path, k):
         # base case handling
         if root is None:
             return False
@@ -24,8 +39,8 @@ class BinaryTree:
             return True
 
         # Check if k is found in left or right sub-tree
-        if ((root.left is not None and self.get_path(root.left, path, k)) or
-                (root.right is not None and self.get_path(root.right, path, k))):
+        if ((root.left is not None and self._get_path(root.left, path, k)) or
+                (root.right is not None and self._get_path(root.right, path, k))):
             return True
 
         # If not present in subtree rooted with root,
@@ -37,12 +52,12 @@ class BinaryTree:
     def distance(self, value1, value2):
         # Get a path from root to value1
         path1 = []
-        if not self.get_path(self.root, path1, value1):
+        if not self._get_path(self.root, path1, value1):
             return -1
 
         # Get a path from root to value2
         path2 = []
-        if not self.get_path(self.root, path2, value2):
+        if not self._get_path(self.root, path2, value2):
             return -1
 
         # iterate through the paths to find the common path length
@@ -70,3 +85,13 @@ t.root.right.left.right = Node(8)
 print(t.distance(8, 5) == 5)  # True
 print(t.distance(2, 4) == 1)  # True
 print(t.distance(2, 10) == -1)  # True
+print(t.is_binary_search_tree() is False)  # True
+
+t = BinaryTree(5)
+t.root.left = Node(3)
+t.root.right = Node(7)
+t.root.left.left = Node(2)
+t.root.right.right = Node(8)
+t.root.right.left = Node(6)
+t.root.left.right = Node(4)
+print(t.is_binary_search_tree())  # True
