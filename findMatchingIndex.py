@@ -1,7 +1,7 @@
 import math
 
 
-# Finds an element in the list equal to its index in O(log n) time
+# Finds an element in the sorted list equal to its index in O(log n) time
 def find_matching_index(input_array, offset=0):
     if len(input_array) == 0:
         # If length equals zero, no match found so return false
@@ -17,7 +17,7 @@ def find_matching_index(input_array, offset=0):
         # the second half of the array and add to offset
         return find_matching_index(input_array[(i + 1):], offset + i)
     else:
-        # If the current element is less than its index, recursively pass
+        # If the current element is greater than its index, recursively pass
         # the first half of the array but do not add to offset
         return find_matching_index(input_array[:i], offset)
 

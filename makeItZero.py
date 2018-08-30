@@ -1,14 +1,19 @@
-# Print two arrays with equal sums if they exist in O(n) time
+# Print two arrays with equal sums if they exist in O(n*log(n)) time
 def make_it_zero(input_array):
-    arr = sorted(input_array)
-    n = len(arr)
+    arr = sorted(input_array)  # O(n*log(n))
+    n = len(arr) - 1
 
-    counter1 = arr[n - 1]
-    counter2 = arr[n - 2]
+    # Last element
+    counter1 = arr[n]
+    # Second to last element
+    counter2 = arr[n - 1]
+
+    # Create the two arrays
     sum1 = [counter1]
     sum2 = [counter2]
 
-    i = n - 3
+    # Starting at third to last element
+    i = n - 2
     while i >= 0:  # O(n)
         if counter1 > counter2:
             counter2 = counter2 + arr[i]
@@ -17,12 +22,14 @@ def make_it_zero(input_array):
             counter1 = counter1 + arr[i]
             sum1.append(arr[i])
         i -= 1
-    print(sum1)
-    print(sum2)
     if counter1 != counter2:
-        return "Sum of array with sign changes cannot equal zero!"
+        return [], []
+    else:
+        return sum1, sum2
 
-make_it_zero([6, 12, 18])
+
+print(make_it_zero([6, 12, 18]) == ([18], [12, 6]))  # True
+print(make_it_zero([6, 1, 12]) == ([], []))  # True
 
 # # Attempt to change signs in an array to make the sum equal to zero
 # def make_it_zero(arr):
