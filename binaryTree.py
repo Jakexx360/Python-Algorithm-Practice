@@ -90,6 +90,16 @@ class BinaryTree:
         if root.right is not None:
             self._in_order_helper(root.right, values)
 
+    # Recursive calculation of max tree depth
+    def max_depth(self, root):
+        if root.left is None and root.right is None:
+            return 1
+        if root.left is None:
+            return self.max_depth(root.right) + 1
+        if root.right is None:
+            return self.max_depth(root.left) + 1
+        return max(self.max_depth(root.left), self.max_depth(root.right)) + 1
+
 
 t = BinaryTree(1)
 t.root.left = Node(2)
@@ -114,3 +124,6 @@ t.root.right.left = Node(6)
 t.root.left.right = Node(4)
 print(t.is_binary_search_tree())  # True
 print(t.in_order() == [2, 3, 4, 5, 6, 7, 8])  # True
+print(t.max_depth(t.root) == 3)  # True
+t.root.left.left.left = Node(1)
+print(t.max_depth(t.root) == 4)  # True
