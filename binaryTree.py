@@ -26,7 +26,7 @@ class BinaryTree:
     # Returns true if this is a valid binary search tree
     def is_binary_search_tree(self):
         # Arbitrary large starting max/min values
-        return self._is_binary_search_tree_helper(self.root, -1000, 100000)
+        return self._is_binary_search_tree_helper(self.root, -100000, 100000)
 
     # Private recursive helper for building a path from given root to k
     def _distance_helper(self, root, path, k):
@@ -79,17 +79,16 @@ class BinaryTree:
     # Returns an in-order traversal of values in the tree
     def in_order(self):
         vals = []
-        self._in_order_helper(self.root, vals, [])
+        self._in_order_helper(self.root, vals)
         return vals
 
     # Private recursive helper that builds a list of node values via in-order traversal
-    def _in_order_helper(self, root, values, visited):
-        if root.left is not None and root.left not in visited:
-            self._in_order_helper(root.left, values, visited)
-        visited.append(root)
+    def _in_order_helper(self, root, values):
+        if root.left is not None:
+            self._in_order_helper(root.left, values)
         values.append(root.value)
-        if root.right is not None and root.right not in visited:
-            self._in_order_helper(root.right, values, visited)
+        if root.right is not None:
+            self._in_order_helper(root.right, values)
 
 
 t = BinaryTree(1)
