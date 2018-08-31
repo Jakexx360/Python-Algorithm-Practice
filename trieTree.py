@@ -61,7 +61,7 @@ class Trie:
             # Move on to the next node
             curr_node = curr_node.children[index]
 
-        # Return the value of the last node
+        # Return the value of the last node, or None if it is not set
         return curr_node.value
 
     # Delete value for the given key from the trie

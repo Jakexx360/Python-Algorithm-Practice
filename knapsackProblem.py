@@ -7,8 +7,8 @@ def knapsack(capacity, weights, values, num_items):
     if num_items == 0 or capacity == 0:
         return 0
 
-    # If weight of the nth item is more than Knapsack of capacity
-    # W, then this item cannot be included in the optimal solution
+    # If weight of the nth item is more than Knapsack of given capacity
+    # then this item cannot be included in the optimal solution
     if weights[num_items - 1] > capacity:
         return knapsack(capacity, weights, values, num_items - 1)
 

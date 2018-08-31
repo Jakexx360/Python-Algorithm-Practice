@@ -12,21 +12,24 @@ class BinaryTree:
         self.root = Node(value)
 
     # Private recursive method for checking binary search tree validity
-    def _search_tree_helper(self, current, min_val, max_val):
+    def _is_binary_search_tree_helper(self, current, min_val, max_val):
         if current.left is not None:
-            if current.left.value < min_val or not self._search_tree_helper(current.left, min_val, current.value):
+            if current.left.value < min_val \
+                    or not self._is_binary_search_tree_helper(current.left, min_val, current.value):
                 return False
         if current.right is not None:
-            if current.right.value > max_val or not self._search_tree_helper(current.right, current.value, max_val):
+            if current.right.value > max_val \
+                    or not self._is_binary_search_tree_helper(current.right, current.value, max_val):
                 return False
         return True
 
     # Returns true if this is a valid binary search tree
     def is_binary_search_tree(self):
-        return self._search_tree_helper(self.root, 0, 100000)
+        # Arbitrary large starting max/min values
+        return self._is_binary_search_tree_helper(self.root, -1000, 100000)
 
     # Private recursive method for building a path from given root to k
-    def _get_path(self, root, path, k):
+    def _distance_helper(self, root, path, k):
         # base case handling
         if root is None:
             return False
@@ -39,8 +42,8 @@ class BinaryTree:
             return True
 
         # Check if k is found in left or right sub-tree
-        if ((root.left is not None and self._get_path(root.left, path, k)) or
-                (root.right is not None and self._get_path(root.right, path, k))):
+        if ((root.left is not None and self._distance_helper(root.left, path, k)) or
+                (root.right is not None and self._distance_helper(root.right, path, k))):
             return True
 
         # If not present in subtree rooted with root,
@@ -48,16 +51,16 @@ class BinaryTree:
         path.pop()
         return False
 
-    # Find minimum distance between two nodes
+    # Returns minimum distance between two nodes
     def distance(self, value1, value2):
         # Get a path from root to value1
         path1 = []
-        if not self._get_path(self.root, path1, value1):
+        if not self._distance_helper(self.root, path1, value1):
             return -1
 
         # Get a path from root to value2
         path2 = []
-        if not self._get_path(self.root, path2, value2):
+        if not self._distance_helper(self.root, path2, value2):
             return -1
 
         # iterate through the paths to find the common path length
@@ -73,6 +76,19 @@ class BinaryTree:
         # intersecting path length (2 * i)
         return len(path1) + len(path2) - 2 * i
 
+    def in_order(self):
+        vals = []
+        self._in_order_helper(self.root, vals, [])
+        return vals
+
+    def _in_order_helper(self, root, values, visited):
+        if root.left is not None and root.left not in visited:
+            self._in_order_helper(root.left, values, visited)
+        visited.append(root)
+        values.append(root.value)
+        if root.right is not None and root.right not in visited:
+            self._in_order_helper(root.right, values, visited)
+
 
 t = BinaryTree(1)
 t.root.left = Node(2)
@@ -86,6 +102,7 @@ print(t.distance(8, 5) == 5)  # True
 print(t.distance(2, 4) == 1)  # True
 print(t.distance(2, 10) == -1)  # True
 print(t.is_binary_search_tree() is False)  # True
+print(t.in_order() == [4, 2, 5, 1, 6, 8, 3, 7])  # True
 
 t = BinaryTree(5)
 t.root.left = Node(3)
@@ -95,3 +112,4 @@ t.root.right.right = Node(8)
 t.root.right.left = Node(6)
 t.root.left.right = Node(4)
 print(t.is_binary_search_tree())  # True
+print(t.in_order() == [2, 3, 4, 5, 6, 7, 8])  # True
