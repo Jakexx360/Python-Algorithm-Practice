@@ -35,7 +35,7 @@ print(max_array_sum([-10, -20, 0, -10]))  # -10
 print(max_array_sum([-10, 10, -20, -30, -10, 5, 0, 10]))  # 25
 
 
-# Calculate maximum sum of continuous subsets of the input array in O(nW) time
+# Calculate maximum sum of continuous subsets of the input array in O(n) time
 def max_partial_sum(arr):
     # If given an empty array, no valid max sum exists
     if len(arr) < 1:
@@ -67,3 +67,37 @@ print(max_partial_sum([]))  # Empty input - no valid max sum
 print(max_partial_sum([-5]))  # -5
 print(max_partial_sum([-2, -1]))  # -1
 print(max_partial_sum([0, 0, -1]))  # 0
+
+
+# Calculate desired sum of continuous subsets of the input array in O(n) time
+def target_partial_sum(arr, target):
+    # If given an empty array, no valid max sum exists
+    if len(arr) < 1:
+        return "Empty input - no valid max sum"
+
+    # Default current_sum so far to zero
+    current_sum = 0
+    sums = dict()
+
+    for i, val in enumerate(arr):
+        # Add arr[i] to the current_max_sum so far
+        current_sum += val
+
+        # Return the composite values if we've found the desired sum
+        if current_sum == target:
+            return arr[0:i + 1]
+        # If current_sum - target sum is in the sums dict, we have the value
+        if sums.get(current_sum - target, None) is not None:
+            return arr[sums[current_sum - target]:i + 1]
+
+        sums[current_sum] = i + 1
+
+    # No subarray with the target sum
+    return []
+
+
+print(target_partial_sum([2, 3, -5, 6], 1) == [-5, 6])  # True
+print(target_partial_sum([2, 3, -5, 6], 2) == [2])  # True
+print(target_partial_sum([2, 3, -5, 6], 0) == [2, 3, -5])  # True
+print(target_partial_sum([-15, 10, 5], 0) == [-15, 10, 5])  # True
+print(target_partial_sum([-15, 10, 1, -15, 10, 5], 0) == [-15, 10, 5])  # True

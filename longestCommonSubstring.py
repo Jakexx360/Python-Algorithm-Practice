@@ -31,6 +31,7 @@ def longest_common_substring(str1, str2):
     # Return number of matching characters and those characters
     return result, str2[x - result:x]
 
+
 print(longest_common_substring("my algorithms class", "algo dog cat test class"))  # 6
 print(longest_common_substring("cat", "dog"))  # 0
 print(longest_common_substring("cat", "bar"))  # 1
