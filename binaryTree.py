@@ -28,7 +28,7 @@ class BinaryTree:
         # Arbitrary large starting max/min values
         return self._is_binary_search_tree_helper(self.root, -1000, 100000)
 
-    # Private recursive method for building a path from given root to k
+    # Private recursive helper for building a path from given root to k
     def _distance_helper(self, root, path, k):
         # base case handling
         if root is None:
@@ -51,7 +51,7 @@ class BinaryTree:
         path.pop()
         return False
 
-    # Returns minimum distance between two nodes
+    # Returns minimum distance between two nodes with the given values
     def distance(self, value1, value2):
         # Get a path from root to value1
         path1 = []
@@ -76,11 +76,13 @@ class BinaryTree:
         # intersecting path length (2 * i)
         return len(path1) + len(path2) - 2 * i
 
+    # Returns an in-order traversal of values in the tree
     def in_order(self):
         vals = []
         self._in_order_helper(self.root, vals, [])
         return vals
 
+    # Private recursive helper that builds a list of node values via in-order traversal
     def _in_order_helper(self, root, values, visited):
         if root.left is not None and root.left not in visited:
             self._in_order_helper(root.left, values, visited)
